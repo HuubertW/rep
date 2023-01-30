@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twoja lista zadań</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+    }   
+  h1 {
+  text-align: center;
+  margin: 30px 0;
+  }
+  h2 {
+  text-align: center;
+  margin: 30px 0;
+  }
+
+  form {
+  margin: 30px auto;
+  font-variant: small-caps;
+  width: 400px;
+  padding: 30px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px #ccc;
+  border-radius: 10px;
+  }
+  
+  nav {
+  background-color: white;
+  color: #fff;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 50px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+  label {
+  display: block;
+  margin-bottom: 10px;
+  }
+
+  input[type="text"], input[type="date"], input[type="number"] {
+  font-variant: small-caps;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  }
+
+  input[type="submit"] {
+  background-color: #4CAF50;
+  font-variant: small-caps;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
+  }
+
+  table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  border-radius: 10px;
+      }
+
+  th, td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: left;
+  }
+
+  th {
+  background-color: lightgray;
+  }
+  a{
+  background-color: #4CAF50;
+  font-variant: small-caps;
+  color: white;
+  padding: 12px 20px;
+  text-align: right;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  }
+
+  a:hover{
+  color:black;
+  padding: 12px 20px;
+  text-align: right;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 100%;
+  }
+  #logout:hover{
+    background-color: red;
+    color: white;
+  }
+    #Logowanie:hover{
+        background-color: #4CAF50;
+        color:black;
+        padding: 12px 20px;
+        text-align: center;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        }
+  
+  </style>
+</head>
+<body>
+
+    <h1> Twoje ToDo </h1>
+    {% if current_user.is_authenticated %}
+    <nav>
+        <ul>
+          <li><a id="logout" href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </nav>
+    {% else %}
+        <form method="post" action="{{ url_for('login') }}">
+            <input type="hidden" value="asd" id="nazwaU" name="nazwaU" required>
+            <br>
+            <input type="hidden" value="asd" id="hasloU" name="hasloU" required>
+            <br>
+            <marquee direction="right" truespeed="1000" scrolldelay="10"><input type="submit" value="Login" style="height:50px; width:300px; color: red; background-color: aqua;"></marquee>
+        </form>
+    {% endif %}
+    
+<form method="get" action="{{ url_for('index') }}">
+    <label for="sort_by">Sortuj zadania:</label>
+    <select id="sort_by" name="sort_by">
+        <option value="name">Nazwa</option>
+        <option value="data">Data</option>
+        <option value="rating">Skala waznosci</option>
+    </select></br></br>
+    <input type="submit" id="Logowanie" value="Sortuj">
+</form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Data</th>
+                <th>Skala waznosci</th>
+                <th>Usuń</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consq_x in consq_xs %}
+                <tr>
+                    <td>{{ consq_x.name }}</td>
+                    <td>{{ consq_x.data}}</td>
+                    <td>{{ consq_x.rating }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_consq_x') }}" method="post">
+                            <input type="hidden" name="consq_x_id" value="{{ consq_x.id }}">
+                            <input type="submit" value="Usuń">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Dodaj nowe zadanie </h2>
+    <form method="post" action="{{ url_for('index') }}">
+        <label for="name">Nazwa zadania:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" >
+        <br>
+        <label for="rating"> Skala waznosci (1-10):</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" step="1" required>
+        <br>
+        <input type="submit" id="Logowanie"value="Dodaj Zadanie ">
+    </form>
+</body>
+</html

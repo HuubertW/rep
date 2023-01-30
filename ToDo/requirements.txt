@@ -1,0 +1,4 @@
+Flask~=2.2.2
+Flask-SQLAlchemy
+SQLAlchemy~=1.4.46
+Flask_login

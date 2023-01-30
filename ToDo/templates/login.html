@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Projekt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        form {
+            font-family: Arial, Helvetica, sans-serif;
+            font-variant: small-caps;
+            margin: 30px auto;
+            width: 400px;
+            padding: 30px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 5px rgb(116, 116, 116);
+            border-radius: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        input[type="text"], input[type="hasloU"] {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #Logowanie:hover{
+        background-color: #4CAF50;
+        color:black;
+        padding: 12px 20px;
+        text-align: center;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="login"></div>
+    <h1>Twoje ToDo</h1>
+    <p>--------------------------------------------------</p>
+    <h1>Logowanie </h1>
+    <form method="post" action="{{ url_for('login') }}">
+        <label for="nazwaU">Login:</label>
+        <input type="text" id="nazwaU" name="nazwaU" required>
+        <br>
+        <label for="hasloU">Hasło:</label>
+        <input type="hasloU" id="hasloU" name="hasloU" required>
+        <br>
+        <input type="submit" id="Logowanie" value="Login">
+    </form>
+</div>
+</body>
+</html>
